@@ -111,37 +111,37 @@ parfor i = 1:size_TR(2)
 end
 
 opt = fitoptions('Method', 'NonlinearLeastSquares');
-opt.StartPoint=[0 1800];
-opt.Lower=[0 0];
-opt.Upper=[inf inf];
+opt.StartPoint = [0 1800];
+opt.Lower = [0 0];
+opt.Upper = [inf inf];
 
-f = fittype('M * (1-exp(-t / T))', 'independent', {'t'}, 'dependent', {'m'}, 'coefficients', {'M', 'T'}, 'options', opt); 
+f = fittype('M0 * (1-exp(-t / T1))', 'independent', {'t'}, 'dependent', {'Mz'}, 'coefficients', {'M0', 'T1'}, 'options', opt);
 [myfit, goodness] = fit(TR', MR_signals', f);
 
 plot(myfit, TR, MR_signals);
-title(strcat("T1 = ", num2str(myfit.T), " ms; R^2 = ", num2str(goodness.rsquare)));
+title(strcat("T1 = ", num2str(myfit.T1), " ms; R^2 = ", num2str(goodness.rsquare)));
 
 saveas(gcf, "images/T1_fit.png");
 
-return;
-
 %% ----- T2 fitting (MSME)   ----- %%
 
+MR_signals = zeros(1, size_msme(2));
+parfor i = 1:size_msme(2)
+    MR_signals(1, i) = mean(msme_6week_image_data(i, :, :), 'all');
+end
 
-%%%%%%%%%% Fill out "��" part %%%%%%%%%%
+opt = fitoptions('Method', 'NonlinearLeastSquares');
+opt.StartPoint = [0 50];
+opt.Lower = [0 0];
+opt.Upper = [inf inf];
 
+f = fittype('M0 * exp(-t/T2)', 'independent', 't', 'dependent', 'Mxy', 'coefficients', {'M0', 'T2'}, 'options', opt);
+[myfit, goodness] = fit(TE_msme', MR_signals', f);
 
-MR_signals = ''; % MR signal array to fitting (MSME)
+plot(myfit, TE_msme, MR_signals);
+title(strcat("T2 = ", num2str(myfit.T2), " ms; R^2 = ", num2str(goodness.rsquare)));
 
-opt = fitoptions('Method','NonlinearLeastSquares');
-opt.StartPoint=[0 50 0]; 
-opt.Lower=[0 0 0]; 
-opt.Upper=[inf inf inf];
-
-f=fittype('S0*(�ڡ�)+C','independent','��','coefficients',{'S0','��','C'},'options',opt); % C = noise. 
-% �ڡ� = equation part 
-[myfit,goodness] = fit(TE_msme',MR_signals',f);
-
+return;
 
 %% ----- T2* fitting (MGE)   ----- %%
 
