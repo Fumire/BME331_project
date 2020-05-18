@@ -95,7 +95,7 @@ parfor i = 1:size_mge(2)
     tmp = transpose(tmp);
     
     image = imagesc(tmp);
-    title(strcat("TE = ", int2str(TE_mge(i)), " ms"));
+    title(strcat("TE = ", num2str(TE_mge(i)), " ms"));
     axis image;
     colormap gray;
     
@@ -103,25 +103,27 @@ parfor i = 1:size_mge(2)
     mge_6week_image_data(i, :, :) = tmp;
 end
 
-return;
-
 %% ----- T1 fitting (RARE-VTR)   ----- %%
 
+MR_signals = zeros(1, size_TR(2));
+parfor i = 1:size_TR(2)
+    MR_signals(1, i) = mean(vtr_6week_image_data(i, :, :), 'all');
+end
 
-%%%%%%%%%% Fill out "this" part %%%%%%%%%%
-
-
-MR_signals = ''; % MR signal array to fitting (RARE-VTR)
-
-opt = fitoptions('Method','NonlinearLeastSquares');
-opt.StartPoint=[0 1800]; 
-opt.Lower=[0 0]; 
+opt = fitoptions('Method', 'NonlinearLeastSquares');
+opt.StartPoint=[0 1800];
+opt.Lower=[0 0];
 opt.Upper=[inf inf];
 
-f=fittype('S0*','independent','asdf','coefficients',{'S0','asdf'},'options',opt); 
-% �ڡ� = equation part 
-[myfit,goodness] = fit(TR',MR_signals',f);
+f = fittype('M * (1-exp(-t / T))', 'independent', {'t'}, 'dependent', {'m'}, 'coefficients', {'M', 'T'}, 'options', opt); 
+[myfit, goodness] = fit(TR', MR_signals', f);
 
+plot(myfit, TR, MR_signals);
+title(strcat("T1 = ", num2str(myfit.T), " ms; R^2 = ", num2str(goodness.rsquare)));
+
+saveas(gcf, "images/T1_fit.png");
+
+return;
 
 %% ----- T2 fitting (MSME)   ----- %%
 
