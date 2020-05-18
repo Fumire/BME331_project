@@ -186,9 +186,14 @@ parfor i = 1:Mat
 
         f = fittype('M0 * (1-exp(-t / T1))', 'independent', {'t'}, 'dependent', {'Mz'}, 'coefficients', {'M0', 'T1'}, 'options', opt);
         [myfit, goodness] = fit(TR', MR_signals', f);
-        tmp2(1, j) = myfit.T1;
+        tmp2(1, j) = min([myfit.T1 2000]);
     end
     vtr_map_data(i, :) = tmp2;
 end
 
-imagesc(vtr_map_data);
+image = imagesc(vtr_map_data);
+title("T1 map");
+axis image;
+colorbar;
+
+saveas(image, "images/T1_map.png");
