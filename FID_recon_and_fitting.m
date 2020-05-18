@@ -197,3 +197,67 @@ axis image;
 colorbar;
 
 saveas(image, "images/T1_map.png");
+
+%% ----- T2 Mapping ----- %%
+
+msme_map_data = zeros(Mat, Mat);
+tmp = size_msme(2);
+
+parfor i = 1:Mat
+    tmp2 = zeros(1, Mat);
+    for j = 1:Mat
+        MR_signals = zeros(1, tmp);
+        for x = 1:tmp
+            MR_signals(1, x) = msme_6week_image_data(x, i, j);
+        end
+        
+        opt = fitoptions('Method', 'NonlinearLeastSquares');
+        opt.StartPoint = [0 50];
+        opt.Lower = [0 0];
+        opt.Upper = [inf inf];
+
+        f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
+        [myfit, goodness] = fit(TE_msme', MR_signals', f);
+        tmp2(i, j) = myfit.T2;
+    end
+    msme_map_data(i, :) = tmp2;
+end
+
+image = imagesc(msme_map_data);
+title("T2 map")
+axis image;
+colorbar;
+
+saveas(image, "images/T2_map.png");
+
+%% ----- T2* Mapping ----- %%
+
+mge_map_data = zeros(Mat, Mat);
+tmp = size_mge(2);
+
+parfor i = 1:Mat
+    tmp2 = zeros(1, Mat);
+    for j = 1:Mat
+        MR_signals = zeros(1, tmp);
+        for x = 1:tmp
+            MR_signals(1, x) = mge_6week_image_data(x, i, j);
+        end
+        
+        opt = fitoptions('Method', 'NonlinearLeastSquares');
+        opt.StartPoint = [0 50];
+        opt.Lower = [0 0];
+        opt.Upper = [inf inf];
+
+        f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
+        [myfit, goodness] = fit(TE_msme', MR_signals', f);
+        tmp2(i, j) = myfit.T2;
+    end
+    mge_map_data(i, :) = tmp2;
+end
+
+image = imagesc(mge_map_data);
+title("T2* map");
+axis image;
+colorbar;
+
+saveas(image, "images/T2star_map.png");
