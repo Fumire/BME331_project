@@ -122,6 +122,7 @@ plot(myfit, TR, MR_signals);
 title(strcat("T1 = ", num2str(myfit.T1), " ms; R^2 = ", num2str(goodness.rsquare)));
 
 saveas(gcf, "images/T1_fit.png");
+close all;
 
 %% ----- T2 fitting (MSME)   ----- %%
 
@@ -142,6 +143,7 @@ plot(myfit, TE_msme, MR_signals);
 title(strcat("T2 = ", num2str(myfit.T2), " ms; R^2 = ", num2str(goodness.rsquare)));
 
 saveas(gcf, "images/T2_fit.png");
+close all;
 
 %% ----- T2* fitting (MGE)   ----- %%
 
@@ -162,7 +164,31 @@ plot(myfit, TE_mge, MR_signals);
 title(strcat("T2 = ", num2str(myfit.T2), " ms; R^2 = ", num2str(goodness.rsquare)));
 
 saveas(gcf, "images/T2star_fit.png");
+close all
 
 %% ----- T1 Mapping ----- %%
 
+vtr_map_data = zeros(Mat, Mat);
+tmp = size_TR(2);
 
+parfor i = 1:Mat
+    tmp2 = zeros(1, Mat);
+    for j = 1:Mat
+        MR_signals = zeros(1, tmp);
+        for x = 1:tmp
+            MR_signals(1, x) = vtr_6week_image_data(x, i, j);
+        end
+
+        opt = fitoptions('Method', 'NonlinearLeastSquares');
+        opt.StartPoint = [0 1800];
+        opt.Lower = [0 0];
+        opt.Upper = [inf inf];
+
+        f = fittype('M0 * (1-exp(-t / T1))', 'independent', {'t'}, 'dependent', {'Mz'}, 'coefficients', {'M0', 'T1'}, 'options', opt);
+        [myfit, goodness] = fit(TR', MR_signals', f);
+        tmp2(1, j) = myfit.T1;
+    end
+    vtr_map_data(i, :) = tmp2;
+end
+
+imagesc(vtr_map_data);
