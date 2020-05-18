@@ -60,8 +60,23 @@ parfor i = 1:size_TR(2)
     vtr_6week_image_data(i, :, :) = tmp2;
 end
 
-parfor i = 1:size_msme(2)
+msme_6week_image_data = zeros(size_msme(2), Mat, Mat);
+for i = 1:size_msme(2)
+    msme_6week_image_data(i, :, :) = msme_6week_data(:, i:size_msme(2):(size_msme(2) * Mat));
+end
 
+parfor i = 1:size_msme(2)
+    tmp = ifftshift(ifftn(msme_6week_image_data(i, :, :)));
+    tmp = squeeze(sqrt(sum(abs(tmp).^2, 4)));
+    tmp = transpose(tmp);
+    
+    image = imagesc(tmp);
+    title(strcat("TE = ", int2str(TE_msme(i)), " ms"));
+    axis image;
+    colormap gray;
+    
+    saveas(image, strcat("images/msme_", int2str(i), ".png"));
+    msme_6week_image_data(i, :, :) = tmp;
 end
 
 return;
