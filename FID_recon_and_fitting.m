@@ -29,6 +29,11 @@ tmp = size(msme_6week_data);
 msme_6week_data = complex(msme_6week_data(1:2:tmp(1), :), msme_6week_data(2:2:tmp(1), :));
 msme_6week_data = reshape(msme_6week_data, Mat, Mat * size_msme(2));
 
+mge_6week_data = load("FID_data/Fid_rat_4month_mge").Fid_rat_4month_mge;
+tmp = size(mge_6week_data);
+mge_6week_data = complex(mge_6week_data(1:2:tmp(1), :), mge_6week_data(2:2:tmp(1), :));
+mge_6week_data = reshape(mge_6week_data, Mat, Mat * size_mge(2));
+
 %% ----- Apply 2D Inverse Fourier transform  ----- %%
 
 vtr_6week_image_data = zeros(size_TR(2), Mat, Mat);
@@ -77,6 +82,25 @@ parfor i = 1:size_msme(2)
     
     saveas(image, strcat("images/msme_", int2str(i), ".png"));
     msme_6week_image_data(i, :, :) = tmp;
+end
+
+mge_6week_image_data = zeros(size_mge(2), Mat, Mat);
+for i = 1:size_mge(2)
+    mge_6week_image_data(i, :, :) = mge_6week_data(:, i:size_mge(2):(size_mge(2) * Mat));
+end
+
+parfor i = 1:size_mge(2)
+    tmp = ifftshift(ifftn(mge_6week_image_data(i, :, :)));
+    tmp = squeeze(sqrt(sum(abs(tmp).^2, 4)));
+    tmp = transpose(tmp);
+    
+    image = imagesc(tmp);
+    title(strcat("TE = ", int2str(TE_mge(i)), " ms"));
+    axis image;
+    colormap gray;
+    
+    saveas(image, strcat("images/mge_", int2str(i), ".png"));
+    mge_6week_image_data(i, :, :) = tmp;
 end
 
 return;
