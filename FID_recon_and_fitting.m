@@ -218,7 +218,7 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_msme', MR_signals', f);
-        tmp2(i, j) = myfit.T2;
+        tmp2(1, j) = min([50 myfit.T2]);
     end
     msme_map_data(i, :) = tmp2;
 end
@@ -249,8 +249,8 @@ parfor i = 1:Mat
         opt.Upper = [inf inf];
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
-        [myfit, goodness] = fit(TE_msme', MR_signals', f);
-        tmp2(i, j) = myfit.T2;
+        [myfit, goodness] = fit(TE_mge', MR_signals', f);
+        tmp2(1, j) = min([50 myfit.T2]);
     end
     mge_map_data(i, :) = tmp2;
 end
