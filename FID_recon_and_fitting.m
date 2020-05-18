@@ -141,20 +141,28 @@ f = fittype('M0 * exp(-t/T2)', 'independent', 't', 'dependent', 'Mxy', 'coeffici
 plot(myfit, TE_msme, MR_signals);
 title(strcat("T2 = ", num2str(myfit.T2), " ms; R^2 = ", num2str(goodness.rsquare)));
 
-return;
+saveas(gcf, "images/T2_fit.png");
 
 %% ----- T2* fitting (MGE)   ----- %%
 
-%%%%%%%%%% Fill out "��" part %%%%%%%%%%
+MR_signals = zeros(1, size_mge(2));
+parfor i = 1:size_mge(2)
+    MR_signals(1, i) = mean(mge_6week_image_data(i, :, :), 'all');
+end
 
-MR_signals = ''; % MR signal array to fitting (MGE)
+opt = fitoptions('Method', 'NonlinearLeastSquares');
+opt.StartPoint = [0 30];
+opt.Lower = [0 0];
+opt.Upper = [inf inf];
 
-opt = fitoptions('Method','NonlinearLeastSquares');
-opt.StartPoint=[0 30]; 
-opt.Lower=[0 0]; 
-opt.Upper=[inf inf];
+f = fittype('M0 * exp(-t / T2)', 'independent', 't', 'dependent', 'Mxy', 'coefficients', {'M0', 'T2'}, 'options', opt);
+[myfit, goodness] = fit(TE_mge', MR_signals', f);
 
-f=fittype('S0*(�ڡ�)','independent','��','coefficients',{'S0','��'},'options',opt); 
-% �ڡ� = equation part 
-[myfit,goodness] = fit(TE_mge',MR_signals',f);
+plot(myfit, TE_mge, MR_signals);
+title(strcat("T2 = ", num2str(myfit.T2), " ms; R^2 = ", num2str(goodness.rsquare)));
+
+saveas(gcf, "images/T2star_fit.png");
+
+%% ----- T1 Mapping ----- %%
+
 
