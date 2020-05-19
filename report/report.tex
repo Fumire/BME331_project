@@ -17,6 +17,9 @@
 \definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
 \definecolor{codepurple}{rgb}{0.58, 0, 0.82}
 \definecolor{backcolour}{rgb}{0.95, 0.95, 0.92}
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+
 \lstdefinestyle{mystyle}
 {
 	backgroundcolor=\color{backcolour},   
@@ -63,6 +66,22 @@
 	},
 	|-|/.default=0.5,
 }
+
+\lstset{language=Matlab,
+	breaklines=true,
+	morekeywords={matlab2tikz},
+	keywordstyle=\color{blue},
+	morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+	identifierstyle=\color{black},
+	stringstyle=\color{mylilas},
+	commentstyle=\color{mygreen},
+	showstringspaces=false,
+	numbers=left,%
+	numberstyle={\tiny \color{black}},
+	numbersep=9pt,
+	emph=[1]{for,end,break},emphstyle=[1]\color{red},  
+}
+
 \geometry
 {
 	top = 20mm,
@@ -113,16 +132,77 @@
 			A Fourier Transform (TF) is a mathematical transform which decomposes a function in to its constituent frequencies. Also, there are two main algorithm in TF: Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT). The FFT algorithm derives its efficiency by replacing the computation of one large DFT with that of several smaller DFTs. \cite{ref:FFT1}
 	
 	\section{Method}
+		In this section, the example code will be displayed. However, there are many repetition parts in the program; in this case, only the first part will be shown. 
+	
+		\subsection{Initializing}
+			In this step, the parameters which will be used in entire program will be set, and the raw data are loaded. 
+			
+			\lstinputlisting[language=matlab, firstline=5, lastline=25]{../FID_recon_and_fitting.m}
+	
 		\subsection{FID Data Reconstruction}
+			In this step, the k-space is re-constructed from the raw data by the Inverse Fourier Transform algorithm. Also, the MRI images are derived from the k-space. 
+		
+			\lstinputlisting[language=matlab, firstline=67, lastline=96]{../FID_recon_and_fitting.m}
 		
 		\subsection{$T_1$, $T_2$, $T_2^*$ Fitting}
+			In this step, $T_1$, $T_2$, $T_2^*$ fitting is performed with the average of signal. The average of signal is calculated by the equation \ref{eq:average}.
+			
+			\begin{equation}
+				\rm{Average} = \frac{\Sigma \ Signal}{\rm{Number \ of \ Signal}}
+				\label{eq:average}
+			\end{equation}
+		
+			\lstinputlisting[language=matlab, firstline=270, lastline=289]{../FID_recon_and_fitting.m}
 		
 		\subsection{$T_1$, $T_2$, $T_2^*$ Mapping}
+			$T_1$, $T_2$, $T_2^*$ Mapping is executed on all of the voxels in the images. 
+		
+			\lstinputlisting[language=matlab, firstline=448, lastline=471]{../FID_recon_and_fitting.m}
 		
 		\subsection{Analysis $T_1$, $T_2$, $T_2^*$  by Age}
 	
 	\section{Results}
 		\subsection{FID Data Reconstruction}
+			\subsubsection{RARE-VTR FID Image}
+				
+				\begin{figure}[htbp]
+					\centering
+					$\begin{array}{ccc}
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_1.png}
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_2.png}
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_3.png}
+						\\
+						\mbox{(1)} & \mbox{(2)} & \mbox{(3)} \\
+						
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_4.png}
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_5.png}
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_6.png}
+						\\
+						\mbox{(4)} & \mbox{(5)} & \mbox{(6)} \\
+						
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_7.png}
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_8.png}
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_9.png}
+						\\
+						\mbox{(7)} & \mbox{(8)} & \mbox{(9)} \\
+						
+						&
+						\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/VTR_10.png}
+						&
+						\\
+						& \mbox{(10)} & \\
+					\end{array}$
+					\caption{RARE-VTR FID Images in 4 month}
+					\label{fig:vtr_4month_image}
+				\end{figure}
+			
+			
 		
 		\subsection{$T_1$, $T_2$, $T_2^*$ Fitting}
 		
