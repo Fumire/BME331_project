@@ -49,7 +49,7 @@ tmp = size(msme_20month_data);
 msme_20month_data = complex(msme_20month_data(1:2:tmp(1), :), msme_20month_data(2:2:tmp(1), :));
 msme_20month_data = reshape(msme_20month_data, Mat, Mat * size_msme(2));
 
-mge_6week_data = load("FID_data/Fid_rat_4month_mge").Fid_rat_4month_mge;
+mge_6week_data = load("FID_data/Fid_rat_6week_mge").Fid_rat_6week_mge;
 tmp = size(mge_6week_data);
 mge_6week_data = complex(mge_6week_data(1:2:tmp(1), :), mge_6week_data(2:2:tmp(1), :));
 mge_6week_data = reshape(mge_6week_data, Mat, Mat * size_mge(2));
