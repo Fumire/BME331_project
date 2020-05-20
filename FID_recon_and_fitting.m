@@ -465,7 +465,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * (1-exp(-t / T1))', 'independent', {'t'}, 'dependent', {'Mz'}, 'coefficients', {'M0', 'T1'}, 'options', opt);
         [myfit, goodness] = fit(TR', MR_signals', f);
-        tmp2(1, j) = min([myfit.T1 2000]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     vtr_6week_map_data(i, :) = tmp2;
 end
@@ -496,7 +500,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * (1-exp(-t / T1))', 'independent', {'t'}, 'dependent', {'Mz'}, 'coefficients', {'M0', 'T1'}, 'options', opt);
         [myfit, goodness] = fit(TR', MR_signals', f);
-        tmp2(1, j) = min([myfit.T1 2000]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     vtr_4month_map_data(i, :) = tmp2;
 end
@@ -527,7 +535,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * (1-exp(-t / T1))', 'independent', {'t'}, 'dependent', {'Mz'}, 'coefficients', {'M0', 'T1'}, 'options', opt);
         [myfit, goodness] = fit(TR', MR_signals', f);
-        tmp2(1, j) = min([myfit.T1 2000]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     vtr_20month_map_data(i, :) = tmp2;
 end
@@ -560,7 +572,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_msme', MR_signals', f);
-        tmp2(1, j) = min([50 myfit.T2]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     msme_6week_map_data(i, :) = tmp2;
 end
@@ -591,7 +607,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_msme', MR_signals', f);
-        tmp2(1, j) = min([50 myfit.T2]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     msme_4month_map_data(i, :) = tmp2;
 end
@@ -622,7 +642,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_msme', MR_signals', f);
-        tmp2(1, j) = min([50 myfit.T2]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     msme_20month_map_data(i, :) = tmp2;
 end
@@ -655,7 +679,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_mge', MR_signals', f);
-        tmp2(1, j) = min([50 myfit.T2]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     mge_6week_map_data(i, :) = tmp2;
 end
@@ -686,7 +714,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_mge', MR_signals', f);
-        tmp2(1, j) = min([50 myfit.T2]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     mge_4month_map_data(i, :) = tmp2;
 end
@@ -717,7 +749,11 @@ parfor i = 1:Mat
 
         f = fittype('M0 * exp(-t/T2)', 'independent', {'t'}, 'dependent', {'Mxy'}, 'coefficients', {'M0', 'T2'}, 'options', opt);
         [myfit, goodness] = fit(TE_mge', MR_signals', f);
-        tmp2(1, j) = min([50 myfit.T2]);
+        if goodness.rsquare > 0.95
+            tmp2(1, j) = myfit.T1;
+        else
+            tmp2(1, j) = 0;
+        end
     end
     mge_20month_map_data(i, :) = tmp2;
 end
