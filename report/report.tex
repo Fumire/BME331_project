@@ -137,7 +137,7 @@
 			\subsubsection{Substantia nigra}
 				The substantia nigra (SN) is an anatomically heterogeneous nucleus with regional alternation in striatal projections and distribution of histo-chemical markers. \cite{ref:nigra1} It is well-known than degenerative diseases of the SN indicate regional selectivity, and the SN has around 50 neuronal groups. 
 				
-				Moreover, dopamin contributes to the processing of signals in the SN. \cite{ref:nigra3} It has long been known that dopamine is released to regulate not only the neurotransmitter from the SN, but also the activity of the dopaminergic neurons. \cite{ref:nigra2} Also, the dopaminergic neurons have been developed in the SN \cite{ref:nigra4} Hence, the substantia nigra has an important role in dopamine distribution. 
+				Moreover, dopamin contributes to the processing of signals in the SN. \cite{ref:nigra3} It has long been known that dopamine is released to regulate not only the neurotransmitter from the SN, but also the activity of the dopaminergic neurons. \cite{ref:nigra2} Also, the dopaminergic neurons have been developed in the SN. \cite{ref:nigra4} Hence, the substantia nigra has an important role in dopamine distribution. 
 			
 			\subsubsection{Corpus callosum}
 				The corpus callosum (CC) is a wide and thick nerve tract, consisting of a flat bundle of commissural fibers, beneath the cerebra cortex in the brain. The CC, as the main inter-hemispheric fiber tract, plays an major role in inter-hemispheric integration and communication. \cite{ref:cc1} 
@@ -145,6 +145,42 @@
 				The size of CC differs upon their diseases, occupations, and genders. In schizophrenic patients, the CC would be smaller than normal. \cite{ref:cc2} The CC also would be decreased in autistic, even they are non-mentally retarded. \cite{ref:cc3} The CC would increase between 30 professional musicians and matched controls. \cite{ref:cc1} Some papers suggest a sex difference in the CC. \cite{ref:cc4}
 				
 				The growth of the CC was checked from the fourth fetal month to maturity, even in the adulthood. \cite{ref:cc5, ref:cc6} The CC has a major role in inter-hemispheric functional connectivity in the motor and auditory cortices; the agenesis of CC will diminish the functional connectivity. \cite{ref:cc7}
+				
+			\subsection{Development in Rats and Humans}
+				Obviously, rats and human are different races. Therefore, there are no exact one-to-one connection between development of rats and humans. There are something, such as tail, which rats have but humans do not; and vice versa. Even though, some papers made approximate one-to-one correspond between development of rats and humans. \cite{ref:dev1, ref:dev2}
+				
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=0.8 \linewidth]{figures/development.png}
+					\caption{The approximate age of mice can be determined by their physical attributes during the first 2 weeks of life \protect \cite{ref:dev1}}
+				\end{figure}
+			
+				Thus, the relation between rats and human aging is as the table \ref{tb:dev}.
+				
+				\begin{table}[htbp]
+					\centering
+					\caption{The rat's age in months and its relationship in years with human being in social maturity phase \protect \cite{ref:dev2}}
+					\label{tb:dev}
+					\begin{tabular}{cc}
+						Rat's age in months & Human's age in years \\ \hline
+						6 month & 18 years \\
+						12 month & 30 years \\
+						18 month & 45 years \\
+						24 month & 60 years \\
+						30 month & 75 years \\
+						36 month & 90 years \\
+						42 month & 105 years \\
+						45 month & 113 years \\
+						48 month & 120 years \\
+					\end{tabular}
+				\end{table}
+			
+				Hence, the following relationship will be used:
+				\begin{itemize}
+					\item 6 week in Rat = 4.5 years in Human
+					\item 4 month in Rat = 12 years in Human
+					\item 20 month in Rat = 50 years in Human
+				\end{itemize}
 	
 	\section{Method}
 		In this section, the example code will be displayed. However, there are many repetition parts in the program; in this case, only the first part will be shown. Also, there are three types of data:
@@ -514,21 +550,68 @@
 			The mapped $T_1$, $T_2$, and $T_2^*$ values are in the figures \ref{fig:t1_mapping}, \ref{fig:t2_mapping}, and \ref{fig:t2star_mapping}. In most cases, the voxels in out of the brain tissue have huge values; it might be caused by fitting on the no signal. 
 		
 		\subsection{Analysis by Age}
+			The figure \ref{fig:vtr_age} shows that the RARE-VTR FID images along development. In the figure \ref{fig:vtr_age}, the images are selected by the highest sharpness. 
+			
 			\begin{figure}[htbp]
 				\centering
 				$\begin{array}{ccc}
-					\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/vtr_4month_1.png}
+					\includegraphics[width=0.3 \linewidth]{figures/VTR_6week/vtr_6week_10.png}
 					&
-					\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/vtr_4month_1.png}
+					\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/vtr_4month_10.png}
 					&
-					\includegraphics[width=0.3 \linewidth]{figures/VTR_4month/vtr_4month_1.png}
+					\includegraphics[width=0.3 \linewidth]{figures/VTR_20month/vtr_20month_10.png}
 					\\
+					\mbox{(a) 6 Week} & \mbox{(b) 4 Month} & \mbox{(c) 20 Month} \\
 				\end{array}$
+				\caption{RARE-VTR FID Images by Age}
+				\label{fig:vtr_age}
+			\end{figure}
+		
+			The figure \ref{fig:msme_age} exposes that the MSME FID images along development. In the figure \ref{fig:msme_age}, the images are selected by the contrast between each tissues. 
+			\begin{figure}[htbp]
+				\centering
+				$\begin{array}{ccc}
+					\includegraphics[width=0.3 \linewidth]{figures/MSME_6week/msme_6week_10.png}
+					&
+					\includegraphics[width=0.3 \linewidth]{figures/MSME_4month/msme_4month_10.png}
+					&
+					\includegraphics[width=0.3 \linewidth]{figures/MSME_20month/msme_20month_10.png}
+					\\
+					\mbox{(a) 6 Week} & \mbox{(b) 4 Month} & \mbox{(c) 20 Month} \\
+				\end{array}$
+				\caption{MSME FID Images by Age}
+				\label{fig:msme_age}
+			\end{figure}
+		
+			The figure \ref{fig:mge_age} publishes that the MGE FID images along development. In the figure \ref{fig:mge_age}, the images are selected by the contrast between each tissues. 
+			\begin{figure}[htbp]
+				\centering
+				$\begin{array}{ccc}
+					\includegraphics[width=0.3 \linewidth]{figures/MGE_6week/mge_6week_3.png}
+					&
+					\includegraphics[width=0.3 \linewidth]{figures/MGE_4month/mge_4month_3.png}
+					&
+					\includegraphics[width=0.3 \linewidth]{figures/MGE_20month/mge_20month_3.png}
+					\\
+					\mbox{(a) 6 Week} & \mbox{(b) 4 Month} & \mbox{(c) 20 Month} \\
+				\end{array}$
+				\caption{MGE FID Images by Age}
+				\label{fig:mge_age}
 			\end{figure}
 		
 			\subsubsection{SN}
+				Comparing the SN in the image \ref{fig:vtr_age}-(a) versus the image \ref{fig:vtr_age}-(b) versus the image \ref{fig:vtr_age}-(c); there are dark part has been appeared between (a) and (b); however, the dark part will be disappear between (b) and (c). The figure \ref{fig:vtr_age} is RARE-VTR FID image; id est, the figure \ref{fig:vtr_age} is $T_1$ weighted image. Thus, cerebrospinal fluid (CSF) appears black on $T_1$ weighted image. 
+				
+				Furthermore, the dark part has showed in the figures \ref{fig:msme_age} and \ref{fig:mge_age}. As I mentioned above, MSME FID image and MGE FID image are $T_2$ and $T_2^*$ weighted images, respectively. Thus, fat and CSF appear black on $T_2$ and $T_2^*$ weighted images.
+				
+				Therefore, the dark part in the SN is not fat nor CSF. It is believed that the dark part is empty area; is an intermediate part for pruning between neuron synapses. As referring the table \ref{tb:dev}, 4 month in rats is equivalent to 12 years in human; in other words, the rat is on adolescence. Many papers suggest that neural pruning or circuitry are performed in adolescence. \cite{ref:adol1, ref:adol2, ref:adol3} Thus, this is a typical result. 
+				
+				Moreover, as I mentioned herein-above, the SN has a major role in dopamine distribution. \cite{ref:nigra2, ref:nigra4} In other hands, there are many evidences which sustain the activity of dopamine system in adolescence. \cite{ref:dopa1, ref:dopa2, ref:dopa3} Hence, the SN plays a major roles in not only dopamine distribution, but also the development in adolescence. 
 			
 			\subsubsection{CC}
+				By the figure \ref{fig:vtr_age}, the CC has been darker along the aging. The CC is also being darker in the figures \ref{fig:msme_age} and \ref{fig:mge_age}. As I mentioned in previous section, the dark area in all of the figures \ref{fig:vtr_age}, \ref{fig:msme_age}, and \ref{fig:mge_age} means empty area in the brain. 
+				
+				Thus, it means that the CC is making more sophisticated neuron synapses. Many research suggest that the size or shape of the CC have been changed by many factors, such as sex or aging. \cite{ref:sex1, ref:age1} Also, there are many evidences direct that the CC is exponentially grown in adolescence. \cite{ref:grow1, ref:grow2} Hence, the evidences sustained this result. 
 	
 	\addcontentsline{toc}{section}{References}
 	\bibliographystyle{apacite}
