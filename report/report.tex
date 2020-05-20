@@ -132,7 +132,13 @@
 			A Fourier Transform (TF) is a mathematical transform which decomposes a function in to its constituent frequencies. Also, there are two main algorithm in TF: Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT). The FFT algorithm derives its efficiency by replacing the computation of one large DFT with that of several smaller DFTs. \cite{ref:FFT1}
 	
 	\section{Method}
-		In this section, the example code will be displayed. However, there are many repetition parts in the program; in this case, only the first part will be shown. 
+		In this section, the example code will be displayed. However, there are many repetition parts in the program; in this case, only the first part will be shown. Also, there are three types of data:
+		\begin{enumerate}
+			\item RARE-VTR: Rapid Acquisition with Relaxation Enhancement with Variable repetition time TR
+			\item MSME: Multi-Slice Multi-Echo
+			\item MGE: Multi-Gradient Echo
+		\end{enumerate}
+		Three types of data will be used in $T_1$, $T_2$, and $T_2^*$ analysis, respectively.
 	
 		\subsection{Initializing}
 			In this step, the parameters which will be used in entire program will be set, and the raw data are loaded. 
@@ -165,7 +171,7 @@
 	\section{Results}
 		\subsection{FID Data Reconstruction}
 			\subsubsection{RARE-VTR FID Image}
-				In the figure \ref{fig:vtr_6week_image}, there are 10 MRI images from RARE-VTR FID data. The repetition time (TR) is increasing while in the images in figure \ref{fig:vtr_6week_image}.
+				In the figure \ref{fig:vtr_6week_image}, there are 10 MRI images from RARE-VTR FID data. The repetition time (TR) is increasing while in the images in figure \ref{fig:vtr_6week_image}. By comparing the image \ref{fig:vtr_6week_image}-(1) and the image \ref{fig:vtr_6week_image}-(10), increasing TR is enhancing the $T_1$ weighted image.
 				\begin{figure}[htbp]
 					\centering
 					$\begin{array}{ccc}
@@ -204,7 +210,7 @@
 				\end{figure}
 		
 			\subsubsection{MSME FID Image}
-				In the figure \ref{fig:msme_6week_image}, there are 48 MRI images from MSME data. The echo time (TE) is increasing on the figure \ref{fig:msme_6week_image}.
+				In the figure \ref{fig:msme_6week_image}, there are 48 MRI images from MSME data. The echo time (TE) is increasing on the figure \ref{fig:msme_6week_image}. By comparing the image \ref{fig:msme_6week_image}-(1) and the image \ref{fig:msme_6week_image}-(48), decreasing TR is enhancing the $T_2$ weighted image. 
 				\begin{figure}[htbp]
 					\centering
 					$\begin{array}{cccccc}
@@ -325,7 +331,7 @@
 				\end{figure}
 			
 			\subsubsection{MGE FID Image}
-			
+				In the figure \ref{fig:mge_6week_image}, there are 15 MRI images from MGE data. The TE is increasing on the figure \ref{fig:mge_6week_image}. By comparing the image \ref{fig:mge_6week_image}-(1) and the image \ref{fig:mge_6week_image}-(15), decreasing TR is enhancing the $T_2^*$ weighted image. 
 				\begin{figure}[htbp]
 					\centering
 					$\begin{array}{ccc}
@@ -374,8 +380,10 @@
 				\end{figure}
 		
 		\subsection{$T_1$, $T_2$, $T_2^*$ Fitting}
-		
+			In this section, $T_1$, $T_2$, and $T_2^*$ fitting will be performed. However, it is impossible that displaying all of the fitness in the one figure. In other word, the representative value should be selected, and the fitness on the representative value should be shown. Thus, the average value of signal stands for the representative value. 
+			
 			\subsubsection{$T_1$ Fitting}
+				The $T_1$ fitting is displayed in the figure \ref{fig:t1_fitting}.
 				\begin{figure}[htbp]
 					\centering
 					$\begin{array}{ccc}
@@ -392,7 +400,7 @@
 				\end{figure}
 			
 			\subsubsection{$T_2$ Fitting}
-			
+				The $T_2$ fitting is displayed in the figure \ref{fig:t2_fitting}.
 				\begin{figure}[htbp]
 					\centering
 					$\begin{array}{ccc}
@@ -409,7 +417,7 @@
 				\end{figure}
 			
 			\subsubsection{$T_2^*$ Fitting}
-			
+				The $T_2^*$ fitting is displayed in the figure \ref{fig:t2star_fitting}.
 				\begin{figure}[htbp]
 					\centering
 					$\begin{array}{ccc}
